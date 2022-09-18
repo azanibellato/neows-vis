@@ -6,7 +6,7 @@ The data is retrieved from NASA NeoWs (Near Earth Object Web Service) service at
 ## Prerequisites
 
 - MySQL / MariaDB
-- NodeJS
+- NodeJS version 16
 
 ## Installation and configuration
 
