@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>Monitoring Near-Earth Objects</title>
-        <link href="neows.css">
+        <link href="neows.css" rel="stylesheet" type="text/css">
         <script type="module">
             import * as d3 from "https://cdn.skypack.dev/d3@7";
             const div = d3.selectAll("div");
@@ -10,6 +10,29 @@
         <script src="neows.js"></script>
     </head>
     <body>
+        <main>
+            <div id="monitor">
+                <div id="main-monitor">
+                    <h2>Asteroids of the day</h2>
+                    <div id="day-menu">
+                        <p>Select one day to update the chart:</p>
+                        <div class="btn-menu">
+                            <button class="day-btn selected">mon</button>
+                            <button class="day-btn">tue</button>
+                            <button class="day-btn">wed</button>
+                            <button class="day-btn">thu</button>
+                            <button class="day-btn">fri</button>
+                            <button class="day-btn">sat</button>
+                            <button class="day-btn">sun</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="side-monitor">
+                    <h2>Brightest of the week</h2>
+                </div>
+            </div>
+            
+        </main>
 
     </body>
 
