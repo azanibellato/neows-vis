@@ -12,7 +12,7 @@
         let get_diameter = (item => item.estimated_diameter.kilometers.estimated_diameter_min); //TODO: change into average diameter
     
         // Set the dimensions and margins of the graph
-        const margin = {top: 100, right: 20, bottom: 30, left: 50},
+        const margin = {top: 100, right: 20, bottom: 30, left: 0},
             width = 900 - margin.left - margin.right,
             height = 420 - margin.top - margin.bottom;
 
@@ -27,26 +27,41 @@
 
 
         // Add X axis
-        var x = d3.scaleLinear()
+        var x = d3.scaleLog()
             .domain(d3.extent(props.data, get_velocity))
-            .range([ 0, width ]);
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .range([ 100, width/2+100 ]);
+        // svg.append("g")
+        //     .attr("transform", "translate(0," + height + ")")
+        //     .call(d3.axisBottom(x))
+        //     .select(".domain").remove();
 
         // Add Y axis
         var y = d3.scaleLinear()
             .domain(d3.extent(props.data, get_distance))
             .range([ height, 0]);
         svg.append("g")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y).tickSize(-width).ticks(4).tickFormat(""))
+            .call(g => g.selectAll(".tick line").attr("stroke-opacity", 0.5)) 
+            .call(g => g.selectAll(".domain").attr("stroke-opacity", 0.5))
+            // .select(".domain").remove()
 
         // Add a scale for bubble size
         var z = d3.scaleLinear()
             .domain(d3.extent(props.data, get_diameter))
-            .range([ 1, 40]);
+            .range([ 1, 50]);
 
         // Add dots
+        svg.append('g')
+            .selectAll("dot")
+            .data(props.data)
+            .enter()
+            .append("circle")
+            .attr("cx", d =>  x(get_velocity(d)) )
+            .attr("cy", d =>  y(get_distance(d)) )
+            .attr("r", 1)
+            .style("fill", "#2AF598");
+
+        // Add circles
         svg.append('g')
             .selectAll("dot")
             .data(props.data)
@@ -59,16 +74,6 @@
             .style("opacity", "0.5")
             .attr("stroke", "#2AF598");
 
-
-        svg.append('g')
-            .selectAll("dot")
-            .data(props.data)
-            .enter()
-            .append("circle")
-            .attr("cx", d =>  x(get_velocity(d)) )
-            .attr("cy", d =>  y(get_distance(d)) )
-            .attr("r", 1)
-            .style("fill", "#2AF598")
 
 });
 </script>
@@ -89,7 +94,13 @@
             </div>
         </div>
         
-        <div id="main-graph"></div>
+        <div id="main-graph">
+            
+        </div>
+        <div id="main-graph-legend">
+            <label><span class="icon">&uparrow;</span> DISTANCE (au)</label>
+            <label><span class="icon">&rightarrow;</span> VELOCITY (km/s)</label>
+        </div>
     </div>
 </template>
 

@@ -60,3 +60,18 @@ main{
   color: black;
   border-color: transparent
 }
+
+#main-graph-legend label{
+  display: block;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+}
+
+#main-graph-legend .icon{
+  width:15px;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+}
