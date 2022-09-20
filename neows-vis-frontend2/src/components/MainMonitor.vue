@@ -5,8 +5,8 @@
     
 
     onMounted(() => {
-        console.log(props.data);
 
+        // Functions to extract relevant info from data array
         let get_velocity = (item => item.close_approach_data[0].relative_velocity.kilometers_per_second);
         let get_distance = (item => item.close_approach_data[0].miss_distance.astronomical);
         let get_diameter = (item => item.estimated_diameter.kilometers.estimated_diameter_min); //TODO: change into average diameter
@@ -16,7 +16,7 @@
             width = 900 - margin.left - margin.right,
             height = 420 - margin.top - margin.bottom;
 
-        // append the svg object to the body of the page
+        // append the svg object to the HTML element
         var svg = d3.select("#main-graph")
         .append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -67,12 +67,38 @@
             .data(props.data)
             .enter()
             .append("circle")
+            .attr("class", "datacircle")
             .attr("cx", d =>  x(get_velocity(d)) )
             .attr("cy", d =>  y(get_distance(d)) )
             .attr("r", d => z(get_diameter(d)) )
             .style("fill", "#2AF598")
             .style("opacity", "0.5")
             .attr("stroke", "#2AF598");
+
+        // create a tooltip
+        const tooltip = d3.select("#main-graph").append("div")
+            .attr("class","data-tooltip")
+            .style("position", "absolute")
+            .style("visibility", "hidden")
+            .html("<p></p>");
+
+        d3.selectAll(".datacircle")
+            .on("mouseenter", (event) => {
+                let data = event.target.__data__;
+                tooltip.html(
+                    `<p>NAME: ${data.name}</p>
+                     <p>DIAMETER: ${data.estimated_diameter.kilometers.estimated_diameter_min}</p>`
+                )
+                .style("visibility", "visible")
+            }
+
+                )
+            .on("mousemove", (event) => { 
+                
+                tooltip.style("top", (event.offsetY)+"px").style("left",(event.offsetX)+"px")
+                
+            })
+            .on("mouseleave", () => tooltip.style("visibility", "hidden") );
 
 
 });

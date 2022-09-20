@@ -28,7 +28,6 @@ main{
   padding: 42px 70px;
   width: 300px;
   border-left: 2px solid white;
-  height: 100%;
 }
 
 #day-menu{
@@ -74,4 +73,12 @@ main{
   font-size: 14px;
   text-align: center;
   display: inline-block;
+}
+
+#main-graph{
+  position: relative;
+}
+#main-graph .data-tooltip{
+  padding: 20px;
+  border: 1px solid white;
 }
