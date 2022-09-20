@@ -6,18 +6,23 @@ The data is retrieved from NASA NeoWs (Near Earth Object Web Service) service at
 ## Prerequisites
 
 - MySQL / MariaDB
-- NodeJS version 16
+- NodeJS v.16 or higher
 
 ## Installation and configuration
 
 1. Clone this project with ```git clone https://github.com/azanibellato/neows-vis.git```
-2. Insert the db configuration in ...
+2. Insert the db configuration in 'neows-vis-backend/config/db.config.js'
+3. Create the table by running `neows-setup.sql` in your database
 3. Set your API key for NASA  in ...
 4. Install the node packages for the backend ...
+4. Install the node packages for the frontend ...
 
 ## Run
 
-To run the back-end go, from the command line go into the `neows-vis-backend` folder and type
+To run the backend, from the terminal go into the `neows-vis-backend` folder and type
 ``` npm start ```
 
-For the front-end open the `index.html` page in a browser.
+To run the frontend, in another terminal go into the `neows-vis-folder` folder and type
+``` npm run dev ```
+
+Frontend should run on http://localhost:5173, the backend API at http://localhost:3000.
