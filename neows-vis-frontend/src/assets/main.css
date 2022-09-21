@@ -24,11 +24,6 @@ main{
   flex-grow: 1;
   padding: 42px 70px;
 }
-#side-monitor{
-  padding: 42px 70px;
-  width: 300px;
-  border-left: 2px solid white;
-}
 
 #day-menu{
   margin-top: 40px;
@@ -82,4 +77,28 @@ main{
   padding: 35px 25px;
   border: 1px solid white;
   background-color: rgba(17, 54, 71, 0.4);
+}
+
+#side-monitor{
+  padding: 42px 20px 42px 72px;
+  width: 370px;
+  border-left: 2px solid white;
+}
+
+#side-monitor h3{
+  margin-top:30px;
+  margin-bottom:24px;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+}
+
+.side-legend svg.icon{
+  float: left;
+}
+
+.side-legend label{
+  line-height: 30px;
+  font-weight: 300;
+  font-size: 12px;
 }
