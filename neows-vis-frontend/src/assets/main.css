@@ -93,6 +93,11 @@ main{
   letter-spacing: 0.4px;
 }
 
+.side-legend{
+  margin-top:10px;
+  margin-bottom: 10px;
+}
+
 .side-legend svg.icon{
   float: left;
 }
@@ -100,5 +105,9 @@ main{
 .side-legend label{
   line-height: 30px;
   font-weight: 300;
+  font-size: 12px;
+}
+
+#side-monitor .side-label{
   font-size: 12px;
 }
