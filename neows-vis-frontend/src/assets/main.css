@@ -79,6 +79,6 @@ main{
   position: relative;
 }
 #main-graph .data-tooltip{
-  padding: 20px;
+  padding: 35px 25px;
   border: 1px solid white;
 }

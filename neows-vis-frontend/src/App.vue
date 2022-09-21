@@ -4,22 +4,32 @@
   // import MainMonitor from './components/MainMonitor.vue';
   import * as d3 from 'd3';
 
+  import {getDatesPastWeek} from './utils';
 
-  const day = ref(new Date());
-  let neows_data = ref([]);
+
+  const today = new Date();
+  const selectedDay = ref(new Date());
+  const weekDays = getDatesPastWeek(today);
 
   function fetchData(){
-    const selectedDay = day.value.toISOString().slice(0, 10);
-    fetch(BACKEND_BASE_URL+'neows-day/'+selectedDay)
+    const selectedDayISO = selectedDay.value.toISOString().slice(0, 10);
+    console.log(selectedDayISO);
+    fetch(BACKEND_BASE_URL+'neows-day/'+selectedDayISO)
     .then(response => response.json())
     .then(data=>buildMainGraph(data))
-    
+  }
+
+  function changeDay(day){
+    selectedDay.value = day;
+    console.log(selectedDay.value)
+    fetchData();
   }
 
   onMounted(fetchData);
 
   function buildMainGraph(data){
-
+    //Remove previous graphs
+    d3.selectAll("#main-graph > *").remove();
 
     // Functions to extract relevant info from data array
     let get_velocity = (item => item.velocity);
@@ -40,11 +50,10 @@
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-
     // Add X axis
-    var x = d3.scaleLog()
+    var x = d3.scaleLinear()
         .domain(d3.extent(data, get_velocity))
-        .range([ 100, width/2+100 ]);
+        .range([ 0, width ]);
     // svg.append("g")
     //     .attr("transform", "translate(0," + height + ")")
     //     .call(d3.axisBottom(x))
@@ -55,7 +64,7 @@
         .domain(d3.extent(data, get_distance))
         .range([ height, 0]);
     svg.append("g")
-        .call(d3.axisLeft(y).tickSize(-width).ticks(4).tickFormat(""))
+        .call(d3.axisLeft(y).tickSize(-width).ticks(4)) //.tickFormat(""))
         .call(g => g.selectAll(".tick line").attr("stroke-opacity", 0.5)) 
         .call(g => g.selectAll(".domain").attr("stroke-opacity", 0.5))
         // .select(".domain").remove()
@@ -95,14 +104,18 @@
         .attr("class","data-tooltip")
         .style("position", "absolute")
         .style("visibility", "hidden")
+        .style("pointer-events", "none")
         .html("<p></p>");
 
     d3.selectAll(".datacircle")
-        .on("mouseenter", (event) => {
+        .on("mouseover", (event) => {
             let circledata = event.target.__data__;
             tooltip.html(
-                `<p>NAME: ${circledata.name}</p>
-                  <p>DIAMETER: ${circledata.diameter}</p>`
+                `<p>Name: ${circledata.name}</p>
+                <p>Diameter: ${circledata.diameter} km</p>
+                <p>Magnitude: ${circledata.magnitude} h</p>
+                <p>Distance: ${circledata.distance} au</p>
+                <p>Velocity: ${circledata.velocity} km/s</p>`
             )
             .style("visibility", "visible")
         }
@@ -113,7 +126,7 @@
             tooltip.style("top", (event.offsetY)+"px").style("left",(event.offsetX)+"px")
             
         })
-        .on("mouseleave", () => tooltip.style("visibility", "hidden") );
+        .on("mouseout", (event) =>  tooltip.style("visibility", "hidden"));
 
 
   }
@@ -128,13 +141,11 @@
         <div id="day-menu">
             <p>Select one day to update the chart:</p>
             <div class="btn-menu">
-                <button class="day-btn selected">mon</button>
-                <button class="day-btn">tue</button>
-                <button class="day-btn">wed</button>
-                <button class="day-btn">thu</button>
-                <button class="day-btn">fri</button>
-                <button class="day-btn">sat</button>
-                <button class="day-btn">sun</button>
+                <button v-for="wday in weekDays" class="day-btn" 
+                  :class="{selected: (wday.getDay()==selectedDay.getDay())}"
+                  @click="changeDay(wday)">
+                  {{wday.toLocaleDateString('en-en', { weekday: 'short' }).toLowerCase()}}
+                </button>
             </div>
         </div>
         
