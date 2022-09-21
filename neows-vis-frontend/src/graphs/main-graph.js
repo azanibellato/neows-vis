@@ -23,6 +23,24 @@ export function buildMainGraph(data){
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
+
+            var defs = svg.append("defs");
+
+    //Create a radial gradient for the circle filling
+    defs.append("radialGradient")
+        .attr("id", "circle-gradient")
+        .attr("cx", "50%")	
+        .attr("cy", "50%")
+        .attr("r", "50%")
+        .selectAll("stop")
+        .data([
+                {offset: "0%", color: "rgba(42, 245, 152, 0)"},
+                {offset: "100%", color: "rgba(42, 245, 152, 0.2)"}
+            ])
+        .enter().append("stop")
+        .attr("offset", d => d.offset )
+        .attr("stop-color", d => d.color );
+
     // Add X axis
     var x = d3.scaleLinear()
         .domain(d3.extent(data, get_velocity))
@@ -68,8 +86,7 @@ export function buildMainGraph(data){
         .attr("cx", d =>  x(get_velocity(d)) )
         .attr("cy", d =>  y(get_distance(d)) )
         .attr("r", d => z(get_diameter(d)) )
-        .style("fill", "#2AF598")
-        .style("opacity", "0.5")
+        .style("fill", "url(#circle-gradient)")
         .attr("stroke", "#2AF598");
 
     // create a tooltip
