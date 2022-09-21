@@ -53,7 +53,7 @@
     // Add X axis
     var x = d3.scaleLinear()
         .domain(d3.extent(data, get_velocity))
-        .range([ 0, width ]);
+        .range([ 0, width-50 ]);
     // svg.append("g")
     //     .attr("transform", "translate(0," + height + ")")
     //     .call(d3.axisBottom(x))
@@ -62,7 +62,7 @@
     // Add Y axis
     var y = d3.scaleLinear()
         .domain(d3.extent(data, get_distance))
-        .range([ height, 0]);
+        .range([ height-50, 0]);
     svg.append("g")
         .call(d3.axisLeft(y).tickSize(-width).ticks(4)) //.tickFormat(""))
         .call(g => g.selectAll(".tick line").attr("stroke-opacity", 0.5)) 
