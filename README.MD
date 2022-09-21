@@ -29,4 +29,4 @@ To run the frontend, in another terminal go into the `neows-vis-folder` folder a
 
 Frontend should run on `http://localhost:5173`, the backend API at `http://localhost:3000`.
 
-To run the script to update the database daily, run `neows-vis-backend/bin/daily_fetch`. This script should be put into a cron job to run it daily.
+The script to update the database daily, can be run as `neows-vis-backend/bin/daily_fetch`. This script should be put into a daily cron job.
