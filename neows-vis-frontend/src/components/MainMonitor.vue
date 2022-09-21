@@ -1,15 +1,17 @@
 <script setup>
     import * as d3 from 'd3';
-    import { onMounted } from 'vue';
+    import { onMounted, toRef } from 'vue';
     const props = defineProps(['data']);
     
 
     onMounted(() => {
+        console.log(props.data.value);
+        let data = props.data;
 
         // Functions to extract relevant info from data array
-        let get_velocity = (item => item.close_approach_data[0].relative_velocity.kilometers_per_second);
-        let get_distance = (item => item.close_approach_data[0].miss_distance.astronomical);
-        let get_diameter = (item => item.estimated_diameter.kilometers.estimated_diameter_min); //TODO: change into average diameter
+        let get_velocity = (item => item.velocity);
+        let get_distance = (item => item.distance);
+        let get_diameter = (item => item.diameter);
     
         // Set the dimensions and margins of the graph
         const margin = {top: 100, right: 20, bottom: 30, left: 0},
@@ -28,7 +30,7 @@
 
         // Add X axis
         var x = d3.scaleLog()
-            .domain(d3.extent(props.data, get_velocity))
+            .domain(d3.extent(data, get_velocity))
             .range([ 100, width/2+100 ]);
         // svg.append("g")
         //     .attr("transform", "translate(0," + height + ")")
@@ -37,7 +39,7 @@
 
         // Add Y axis
         var y = d3.scaleLinear()
-            .domain(d3.extent(props.data, get_distance))
+            .domain(d3.extent(data, get_distance))
             .range([ height, 0]);
         svg.append("g")
             .call(d3.axisLeft(y).tickSize(-width).ticks(4).tickFormat(""))
@@ -47,13 +49,13 @@
 
         // Add a scale for bubble size
         var z = d3.scaleLinear()
-            .domain(d3.extent(props.data, get_diameter))
+            .domain(d3.extent(data, get_diameter))
             .range([ 1, 50]);
 
         // Add dots
         svg.append('g')
             .selectAll("dot")
-            .data(props.data)
+            .data(data)
             .enter()
             .append("circle")
             .attr("cx", d =>  x(get_velocity(d)) )
@@ -64,7 +66,7 @@
         // Add circles
         svg.append('g')
             .selectAll("dot")
-            .data(props.data)
+            .data(data)
             .enter()
             .append("circle")
             .attr("class", "datacircle")
@@ -84,10 +86,10 @@
 
         d3.selectAll(".datacircle")
             .on("mouseenter", (event) => {
-                let data = event.target.__data__;
+                let circledata = event.target.__data__;
                 tooltip.html(
-                    `<p>NAME: ${data.name}</p>
-                     <p>DIAMETER: ${data.estimated_diameter.kilometers.estimated_diameter_min}</p>`
+                    `<p>NAME: ${circledata.name}</p>
+                     <p>DIAMETER: ${circledata.diameter}</p>`
                 )
                 .style("visibility", "visible")
             }
