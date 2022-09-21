@@ -1,12 +1,44 @@
 #!/usr/bin/env node
 
+/* Script to fetch data for the last 14 days, updating if needed
+It's 14 days so we always have the data of the past week available.
+*/
 const axios = require('axios').default;
 
 const apiConfig = require("../config/api.config.js");
 const Neows = require("../models/neows.model");
 
+const daysBack = 7; //How many days to look in the past
 
-axios.get('https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key='+apiConfig.API_KEY)
-.then(response => Neows.insertData(response.data.near_earth_objects['2015-09-08'], (err, data)=>console.log(data)));
+const currentTime = new Date();
+const todayDateISO = currentTime.toISOString().slice(0, 10); //Take only the date, not the time
+
+const pastTime = new Date();
+pastTime.setDate(currentTime.getDate() - daysBack); // Go back 7 days
+const pastTimeISO = pastTime.toISOString().slice(0, 10);
+
+
+
+axios.get(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${pastTimeISO}&end_date=${todayDateISO}&api_key=${apiConfig.API_KEY}`)
+.then(response => {
+        const nasa_data = response.data.near_earth_objects;
+        const daily_data = new Array();
+        for (let i=daysBack; i>=0; i--){ //Builds a single array with all the data for a week, instead of dividing them by day
+            const day = new Date();
+            day.setDate(currentTime.getDate()-i);
+            const dayISO = day.toISOString().slice(0,10);
+            daily_data.push(...nasa_data[dayISO]);
+        }
+        Neows.insertData(daily_data, (err, data)=>{
+            if (err){
+                console.log(err);
+                process.exit(1);
+            }
+            else{
+                console.log(data);
+                process.exit(0);
+            }
+        });
+    });
 
 

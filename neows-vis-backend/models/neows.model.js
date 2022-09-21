@@ -11,8 +11,8 @@ function Neows(nasa_id, neos_reference_id, name, approach_date, diameter, magnit
     this.velocity = velocity;
 }
 
-Neows.getWeek = function(callback){
-    db.query("SELECT * FROM `neows` WHERE `approach_date` between date_sub(now(),INTERVAL 1 WEEK) and now()", (err,res) => {
+Neows.getDay = function(day, callback){
+    db.query("SELECT * FROM `neows` WHERE `approach_date`=?", day, (err,res) => {
     
     if (err) {
         console.log("error:", err);
@@ -25,7 +25,6 @@ Neows.getWeek = function(callback){
 };
 
 Neows.insertData = function(nasa_data, callback){
-    console.log(nasa_data);
     const table_data = nasa_data.map(el => 
         [   el.id, 
             el.neos_reference_id, 
