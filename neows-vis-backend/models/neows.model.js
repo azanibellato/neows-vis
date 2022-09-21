@@ -24,6 +24,20 @@ Neows.getDayData = function(day, callback){
     });
 };
 
+Neows.getWeekBrightest = function(callback){
+    db.query("SELECT * FROM `neows` WHERE `approach_date` BETWEEN date_sub(now(),INTERVAL 1 WEEK) AND now() ORDER BY `magnitude` LIMIT 5", 
+    (err,res) => {
+    
+        if (err) {
+            console.log("error:", err);
+            callback(err, null);
+            return;
+        }
+        console.log(res);
+        callback(null, res);
+        });
+}
+
 Neows.insertData = function(nasa_data, callback){
     const table_data = nasa_data.map(el => 
         [   el.id, 
