@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const NeowsController = require("../controller/neows.controller");
+const NeowsController = require("../controllers/neows.controller");
 
-router.get('/neows-week/', NeowsController.getWeek);
+router.get('/neows-day/:day/', NeowsController.getDay);
 
 module.exports = router;

@@ -11,7 +11,7 @@ function Neows(nasa_id, neos_reference_id, name, approach_date, diameter, magnit
     this.velocity = velocity;
 }
 
-Neows.getDay = function(day, callback){
+Neows.getDayData = function(day, callback){
     db.query("SELECT * FROM `neows` WHERE `approach_date`=?", day, (err,res) => {
     
     if (err) {

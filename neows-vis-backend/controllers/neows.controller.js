@@ -1,8 +1,8 @@
 const Neows = require("../models/neows.model");
 
 NeowsController = {
-  getWeek : function(req, res){
-    Neows.getWeekData((err, data)=>{
+  getDay : function(req, res){
+    Neows.getDayData(req.params.day, (err, data)=>{
       if (err)
             res.status(500).send({
             message: err.message || "Some error occurred while retrieving the data."
