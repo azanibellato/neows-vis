@@ -10,7 +10,7 @@ export function buildMainGraph(data){
     let get_diameter = (item => item.diameter);
 
     // Set the dimensions and margins of the graph
-    const margin = {top: 20, right: 20, bottom: 30, left: 0},
+    const margin = {top: 10, right: 20, bottom: 30, left: 0},
         width = 900 - margin.left - margin.right,
         height = 420 - margin.top - margin.bottom;
 

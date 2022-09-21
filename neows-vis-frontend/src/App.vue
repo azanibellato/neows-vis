@@ -52,6 +52,25 @@
                 </button>
             </div>
         </div>
+        <div id="main-legend">
+          <h3>DIAMETER</h3>
+          <div class="part">
+            <svg width="40" height="40" class="icon"><g transform="translate(10,10)">
+              <circle cx="10" cy="10" r="10" stroke="#2AF598" fill="transparent"></circle>
+              <circle cx="10" cy="10" r="1" stroke="#2AF598" fill="#2AF598"></circle>            
+            </g></svg>
+              <label>Min km</label>
+          </div>
+          <div class="part">
+            <svg width="120" height="120" class="icon"><g transform="translate(60,10)">
+              <circle cx="10" cy="10" r="40" stroke="#2AF598" fill="transparent"></circle>
+              <circle cx="10" cy="10" r="1" stroke="#2AF598" fill="#2AF598"></circle>            
+            </g></svg>
+              <label>Max km</label>
+          </div>
+
+            
+        </div>
         
         <div id="main-graph"></div>
         <div id="main-graph-legend">

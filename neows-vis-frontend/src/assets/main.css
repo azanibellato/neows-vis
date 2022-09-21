@@ -23,6 +23,7 @@ main{
 #main-monitor{
   flex-grow: 1;
   padding: 42px 70px;
+  position: relative;
 }
 
 #day-menu{
@@ -77,6 +78,26 @@ main{
   padding: 35px 25px;
   border: 1px solid white;
   background-color: rgba(17, 54, 71, 0.4);
+}
+#main-legend{
+  position: absolute;
+  right: 90px;
+  top: 125px;
+}
+
+#main-legend .part{
+  display: inline-block;
+}
+
+#main-legend svg.icon{
+  float: left;
+  overflow: visible;
+}
+
+#main-legend label{
+  line-height: 40px;
+  font-weight: 300;
+  font-size: 12px;
 }
 
 #side-monitor{
