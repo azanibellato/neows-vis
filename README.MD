@@ -24,7 +24,7 @@ The data is retrieved from NASA NeoWs (Near Earth Object Web Service) service at
 To run the backend, from the terminal go into the `neows-vis-backend` folder and type
 ``` npm start ```
 
-To run the frontend, in another terminal go into the `neows-vis-folder` folder and type
+To run the frontend, in another terminal go into the `neows-vis-frontend` folder and type
 ``` npm run dev ```
 
 Frontend should run on `http://localhost:5173`, the backend API at `http://localhost:3000`.
