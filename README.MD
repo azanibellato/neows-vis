@@ -18,14 +18,15 @@ The data is retrieved from NASA NeoWs (Near Earth Object Web Service) service at
 ``` npm install ```.
 6. Install the node packages for the frontend: from the terminal go into the `neows-vis-frontend` folder and type
 ``` npm install ```.
+7. Run the script `neows-vis-backend/bin/daily_fetch` to populate the database from NASA API.
 
 ## Run
 
 To run the backend, from the terminal go into the `neows-vis-backend` folder and type
-``` npm start ```
+``` npm start ```.
 
 To run the frontend, in another terminal go into the `neows-vis-frontend` folder and type
-``` npm run dev ```
+``` npm run dev ```.
 
 Frontend should run on `http://localhost:5173`, the backend API at `http://localhost:3000`.
 
