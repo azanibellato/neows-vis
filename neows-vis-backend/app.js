@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cors = require('cors');
+var cors = require('cors'); // Needed to avoid CORS issues
 
 var apiRouter = require('./routes/neows-api');
 

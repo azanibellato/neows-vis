@@ -1,4 +1,3 @@
-const { getWeekBrightest } = require("../models/neows.model");
 const Neows = require("../models/neows.model");
 
 NeowsController = {

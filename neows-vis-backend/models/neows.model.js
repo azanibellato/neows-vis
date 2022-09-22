@@ -39,6 +39,7 @@ Neows.getWeekBrightest = function(callback){
 }
 
 Neows.insertData = function(nasa_data, callback){
+    // Expects data in the format given by NASA API
     const table_data = nasa_data.map(el => 
         [   el.id, 
             el.neos_reference_id, 
