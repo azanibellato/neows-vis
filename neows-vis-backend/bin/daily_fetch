@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-/* Script to fetch data for the last 14 days, updating if needed
-It's 14 days so we always have the data of the past week available.
+/* Script to fetch data for the last 7 days, updating if needed
 */
 const axios = require('axios').default;
 
