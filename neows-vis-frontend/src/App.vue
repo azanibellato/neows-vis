@@ -14,7 +14,7 @@
 
   function fetchData(){
     const selectedDayISO = selectedDay.value.toISOString().slice(0, 10);
-    console.log(selectedDayISO);
+    //console.log(selectedDayISO);
     fetch(BACKEND_BASE_URL+'neows-day/'+selectedDayISO)
     .then(response => response.json())
     .then(data=>buildMainGraph(data));
@@ -23,7 +23,7 @@
 
   function changeDay(day){
     selectedDay.value = day;
-    console.log(selectedDay.value)
+    //console.log(selectedDay.value)
     fetchData();
   }
 
